@@ -1,0 +1,26 @@
+{
+  "builders": [
+    {
+      "type": "googlecompute",
+      "account_file": "credentials.json",
+      "project_id": "project-test-karthik",
+      "zone": "asia-east1-c",
+      "source_image_family": "cis-rhel7-l1",
+      "source_image_project_id": "cis-public",
+      "ssh_username": "root",
+      "use_os_login": true,
+      "image_name": "rhelcis7level1-{{timestamp}}",
+      "image_family": "cisimages"
+    }
+  ],
+  "provisioners": [                                                           
+      {                                                                         
+        "type": "shell",
+        "pause_before": "20s",
+        "execute_command": "{{ .Vars }} exec sudo -E -S bash '{{ .Path }}'",
+        "scripts": [
+          "setup.sh"
+        ]
+      }
+  ]
+}
